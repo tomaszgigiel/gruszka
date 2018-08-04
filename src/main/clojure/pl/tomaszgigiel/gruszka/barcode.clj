@@ -1,4 +1,4 @@
-(ns pl.tomaszgigiel.gruszka.core
+(ns pl.tomaszgigiel.gruszka.barcode
   (:import java.awt.image.BufferedImage)
   (:import java.io.File)
   (:import java.nio.file.Paths)
@@ -21,7 +21,7 @@
   (.getText (.decode (new MultiFormatReader)(new BinaryBitmap (new HybridBinarizer (new BufferedImageLuminanceSource (ImageIO/read (new File p))))))))
 
 (defn -main
-  "gruszka: pictures against younger sister"
+  "gruszka: security against younger sister"
   [& args]
   (cond
     (= (count args) 5)(create-barcode (nth args 0) (Integer/parseInt (nth args 1)) (Integer/parseInt (nth args 2)) (nth args 3) (nth args 4))

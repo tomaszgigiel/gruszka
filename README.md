@@ -1,6 +1,6 @@
 # gruszka
 
-Pictures against younger sister.
+Security against younger sister.
 
 ## Usage
 
