@@ -5,16 +5,20 @@
   (:require [buddy.core.hash :as hash])
   (:gen-class))
 
+(defn initialization-vector [numbytes]
+  (nonce/random-bytes numbytes))
+
 (defn encrypted [t k iv] 
-  (crypto/encrypt (codecs/to-bytes t) k iv {:algorithm :aes128-cbc-hmac-sha256}))
+  (crypto/encrypt (codecs/to-bytes t) (hash/sha256 k) iv {:algorithm :aes128-cbc-hmac-sha256}))
 
 (defn decrypted [t k iv] 
-  (-> (crypto/decrypt t k iv {:algorithm :aes128-cbc-hmac-sha256}) (codecs/bytes->str)))
+  (-> (crypto/decrypt t (hash/sha256 k) iv {:algorithm :aes128-cbc-hmac-sha256}) (codecs/bytes->str)))
 
 (defn -main
   "gruszka: security against younger sister"
   [& args]
-  (let [k (hash/sha256 "password")
-        iv (nonce/random-bytes 16)]
-    (println (decrypted (encrypted "zażółć gęślą jaźń" k iv) k iv)))
+  (let [k "password"
+        iv (initialization-vector 16)
+        s "zażółć gęślą jaźń"]
+    (println (decrypted (encrypted s k iv) k iv)))
   (println "ok"))

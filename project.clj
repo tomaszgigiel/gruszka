@@ -1,4 +1,4 @@
-(defproject gruszka "1.0.0.0"
+(defproject gruszka "1.0.0.0-SNAPSHOT"
   :description "gruszka: security against younger sister"
   :url "http://tomaszgigiel.pl"
   :license {:name "Apache License"
